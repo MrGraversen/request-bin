@@ -1,18 +1,17 @@
-import {relay} from "./relay";
-
-import {sseDataFilter} from "./sseDataFilter";
-import {fatal} from "./fatal";
+import { relay } from "./relay";
+import { sseDataFilter } from "./sseDataFilter";
+import { RelayOptions } from "./relayOptions"; 
 
 const EventSource = require('eventsource');
 
-export const requestBinStream = (host: string, stream: string, target: string) => {
-    const requestBinUrl: string = [host, 'api', stream, 'stream'].join('/');
+export const requestBinStream = (options: RelayOptions) => {
+    const requestBinUrl: string = [options.host, 'api', options.stream, 'stream'].join('/');
     const eventSource: EventSource = new EventSource(requestBinUrl);
 
     eventSource.onerror = () => {
-        fatal(`Whoops. The request bin '${stream}' does not seem to exist on '${host}'!`);
+        console.error(`Whoops. The request bin '${options.stream}' does not seem to exist on '${options.host}'!`); 
     };
     eventSource.onmessage = (event: MessageEvent) => {
-        sseDataFilter(event, (event) => relay(target, event));
+        sseDataFilter(event, (event) => relay(options, event));
     };
 };
