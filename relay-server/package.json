@@ -19,7 +19,7 @@
     "eventsource": "^1.0.7",
     "express": "^4.17.1",
     "minimist": "^1.2.5",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.20",
     "ts-node": "^9.0.0",
     "ts-node-dev": "^1.0.0-pre.62",
     "typescript": "^4.0.2"
